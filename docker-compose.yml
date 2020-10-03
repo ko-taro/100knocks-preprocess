@@ -8,7 +8,7 @@ services:
     image: dss-postgres
     container_name: dss-postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres12345
@@ -18,23 +18,8 @@ services:
     volumes:
       - ./docker/db/init:/docker-entrypoint-initdb.d
       - ./docker/work/data:/tmp/data
+      - dss-postgres-data:/var/lib/postgresql/data
 
-  notebook:
-    build:
-      context: .
-      dockerfile: Dockerfile.notebook
-    image: dss-notebook
-    container_name: dss-notebook
-    ports:
-      - "8888:8888"
-    environment:
-      - PG_PORT=5432
-      - PG_USER=padawan
-      - PG_PASSWORD=padawan12345
-      - PG_DATABASE=dsdojo_db
-      - JUPYTER_ENABLE_LAB=yes
-    links:
-      - db
-    volumes:
-      - ./docker/work:/home/jovyan/work
-    command: start-notebook.sh --NotebookApp.token=''
+volumes:
+  dss-postgres-data:
+    external: true
