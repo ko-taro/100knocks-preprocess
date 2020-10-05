@@ -5,7 +5,7 @@ jupyterは自前のを利用する想定
 ```
 $ pip install -r requirements.txt
 ```
-
+psycopg2がなければ別にいれてください。
 
 * DB用ボリュームを作成
 ```
