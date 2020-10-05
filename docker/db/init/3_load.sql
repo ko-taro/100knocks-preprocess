@@ -1,3 +1,5 @@
+\connect dsdojo_db
+
 -- customer
 COPY customer FROM '/tmp/data/customer.csv'
 WITH CSV HEADER
